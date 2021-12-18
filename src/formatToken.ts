@@ -21,6 +21,8 @@ const tokens: Tokens = {
   'HH:mm': { hour: 'numeric', minute: 'numeric', hour12: false },
   'h:mm': { hour: 'numeric', minute: 'numeric', hour12: true },
   'h:mm a': { hour: 'numeric', minute: 'numeric', hour12: true },
+  'hh:mm a': { hour: 'numeric', minute: 'numeric', hour12: true },
+  'h:mm:ss': { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true },
   HH: { hour: '2-digit', hour12: false },
   H: { hour: 'numeric', hour12: false },
   h: { hour: 'numeric', hour12: true },

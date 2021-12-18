@@ -28,29 +28,28 @@ The `date` object should be a valid JavaScript date. The `format` string should 
 
 The following options, based on [unicode date field symbols](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) can be used to generate a locale-based formatted string.
 
-| token    | description        | example output |
-| -------- | ------------------ | -------------- |
-| yyyy     | Full year          | 2021           |
-| yy       | Short year         | 21             |
-| MMMM     | Full month (text)  | August         |
-| MMM      | Short month (text) | Aug            |
-| MM       | 2-digit month      | 08             |
-| M        | Numeric month      | 8              |
-| dd       | 2-digit month      | 07             |
-| d        | Numeric month      | 7              |
-| EEEE     | Full week day      | Friday         |
-| EEE      | Short week day     | Fri            |
-| EE       | Narrow week day    | F              |
-| 'HH:mm'  | 24-hour time       | 08:23          |
-| 'h:mm'   | 12-hour time       | 8:23 AM        |
-| 'h:mm a' | 12-hour time       | 8:23 AM        |
-| HH       | 24-hour hour       | 08             |
-| H        | 24-hour hour       | 08             |
-| h        | 12-hour hour       | 8 AM           |
-| mm       | Minutes            | 03             |
-| m        | Minutes            | 03             |
-| ss       | Seconds            | 06             |
-| s        | Seconds            | 06             |
+| token | description        | example output |
+| ----- | ------------------ | -------------- |
+| yyyy  | Full year          | 2021           |
+| yy    | Short year         | 21             |
+| MMMM  | Full month (text)  | August         |
+| MMM   | Short month (text) | Aug            |
+| MM    | 2-digit month      | 08             |
+| M     | Numeric month      | 8              |
+| dd    | 2-digit month      | 07             |
+| d     | Numeric month      | 7              |
+| EEEE  | Full week day      | Friday         |
+| EEE   | Short week day     | Fri            |
+| EE    | Narrow week day    | F              |
+| HH    | 24-hour hour       | 08             |
+| H     | 24-hour hour       | 08             |
+| h     | 12-hour hour       | 8 AM           |
+| mm    | Minutes            | 03             |
+| m     | Minutes            | 03             |
+| ss    | Seconds            | 06             |
+| s     | Seconds            | 06             |
+
+Some formats are also in place to catch potential time issues such as `HH:mm` and `h:mm a`.
 
 ## Limitations
 
