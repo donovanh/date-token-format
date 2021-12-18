@@ -49,8 +49,8 @@ The following options, based on [unicode date field symbols](https://www.unicode
 | h        | 12-hour hour       | 8 AM           |
 | mm       | Minutes            | 03             |
 | m        | Minutes            | 03             |
-| ss       | Seconds            | 03             |
-| s        | Seconds            | 03             |
+| ss       | Seconds            | 06             |
+| s        | Seconds            | 06             |
 
 ## Limitations
 
