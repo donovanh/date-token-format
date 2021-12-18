@@ -17,7 +17,7 @@ const tokens: Tokens = {
   d: { day: 'numeric' },
   EEEE: { weekday: 'long' },
   EEE: { weekday: 'short' },
-  EE: { weekday: 'short' },
+  EE: { weekday: 'narrow' },
   'HH:mm': { hour: 'numeric', minute: 'numeric', hour12: false },
   'h:mm': { hour: 'numeric', minute: 'numeric', hour12: true },
   'h:mm a': { hour: 'numeric', minute: 'numeric', hour12: true },
