@@ -24,36 +24,62 @@ formatToken(date: Date, format: string, locale?: string)
 
 The `date` object should be a valid JavaScript date. The `format` string should contain one or more formats, and the optional `locale` string is a [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)-compatible locale code such as `en-US` or `fr`.
 
+## Example usage: formatToken
+
+```
+const date = new Date('2021-08-27T12:34:56')
+formatToken(date, 'EEEE', 'en-US')
+=> Friday
+
+formatToken(date, 'EEEE', 'de')
+=> Freitag
+```
+
+Auto-detecting browser locale:
+
+```
+const locale = window.navigator.userLanguage || window.navigator.language
+const date = new Date('2021-08-27T12:34:56')
+formatToken(date, 'EEEE', locale) // Will output weekday in the browser's locale
+```
+
 ## Formats
 
 The following options, based on [unicode date field symbols](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) can be used to generate a locale-based formatted string.
 
-| token | description        | example output |
-| ----- | ------------------ | -------------- |
-| yyyy  | Full year          | 2021           |
-| yy    | Short year         | 21             |
-| MMMM  | Full month (text)  | August         |
-| MMM   | Short month (text) | Aug            |
-| MM    | 2-digit month      | 08             |
-| M     | Numeric month      | 8              |
-| dd    | 2-digit month      | 07             |
-| d     | Numeric month      | 7              |
-| EEEE  | Full week day      | Friday         |
-| EEE   | Short week day     | Fri            |
-| EE    | Narrow week day    | F              |
-| HH    | 24-hour hour       | 08             |
-| H     | 24-hour hour       | 08             |
-| h     | 12-hour hour       | 8 AM           |
-| mm    | Minutes            | 03             |
-| m     | Minutes            | 03             |
-| ss    | Seconds            | 06             |
-| s     | Seconds            | 06             |
-
-Some formats are also in place to catch potential time issues such as `HH:mm` and `h:mm a`.
+| token    | description                     | example output |
+| -------- | ------------------------------- | -------------- |
+| yyyy     | Full year                       | 2021           |
+| yy       | Short year                      | 21             |
+| MMMM     | Full month (text)               | August         |
+| MMM      | Short month (text)              | Aug            |
+| MM       | 2-digit month                   | 08             |
+| M        | Numeric month                   | 8              |
+| dd       | 2-digit day                     | 07             |
+| d        | Numeric day                     | 7              |
+| EEEE     | Full weekday                    | Friday         |
+| EEE      | Short weekday                   | Fri            |
+| EE       | Narrow weekday                  | F              |
+| HH       | 24-hour hour                    | 08             |
+| H        | 24-hour hour                    | 08             |
+| h        | 12-hour hour                    | 8 AM           |
+| mm       | Minutes (2-digits)              | 03             |
+| m        | Minutes                         | 3              |
+| ss       | Seconds (2-digits)              | 06             |
+| s        | Seconds                         | 6              |
+| a        | AM / PM                         | AM             |
+| HH:mm    | Hours and minutes (24-hour)     | 03:06          |
+| HH:mm:ss | Hours/minutes/seconds (24-hour) | 03:06:07       |
+| h:mm     | Hours and minutes (12-hour)     | 3:06 AM        |
+| h:mm:ss  | Hours/minutes/seconds (12-hour) | 3:06:07 AM     |
 
 ## Limitations
 
-As this utility makes use of `Date.toLocaleString`, it is not able to support as many options, especially around hours and minutes. Libraries such as [date-fns](http://date-fns.org) might be useful for a wider range of token support, such as 12-hour times without AM/PM, or ordinals such as `1st`, `2nd`, etc.
+As this utility makes use of `Date.toLocaleString`, it is not able to support as many options, especially around hours and minutes. Libraries such as [date-fns](http://date-fns.org) might be useful for a wider range of token support such as ordinals (`1st`, `2nd`, etc).
+
+Be aware of potential clashing token letters. For example, if you use `s` in your format, it will be converted into seconds.
+
+This version does not yet include a method for excluding parts of format strings from being processed.
 
 ## Browser support
 

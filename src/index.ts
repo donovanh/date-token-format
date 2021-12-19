@@ -1,1 +1,1 @@
-export * from './formatToken';
+export * from './formatToken'
