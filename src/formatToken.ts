@@ -54,17 +54,15 @@ const ampmForLocale = (date: Date, locale: string): string => {
 const overrides: Overrides = {
   mm: (date, locale) => {
     const minute = date.toLocaleString('en-US', { minute: '2-digit' })
-    return new Intl.NumberFormat(locale, { 
-        minimumIntegerDigits: 2,
-    })
-    .format(+minute)
+    return new Intl.NumberFormat(locale, {
+      minimumIntegerDigits: 2
+    }).format(+minute)
   },
   ss: (date, locale) => {
     const second = date.toLocaleString('en-US', { second: '2-digit' })
-    return new Intl.NumberFormat(locale, { 
-        minimumIntegerDigits: 2,
-    })
-    .format(+second)
+    return new Intl.NumberFormat(locale, {
+      minimumIntegerDigits: 2
+    }).format(+second)
   },
   a: ampmForLocale
 }
