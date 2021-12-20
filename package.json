@@ -1,27 +1,29 @@
 {
   "name": "date-token-format",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight, locale aware formatter for strings containing unicode date tokens.",
   "author": "Donovan Hutchinson",
   "repository": {
     "type": "git",
     "url": "https://github.com/donovanh/date-token-format"
   },
-  "keywords": ["date", "format", "unicode"],
+  "keywords": ["date", "format", "unicode", "international"],
   "license": "ISC",
-  "main": "lib/index.js",
+  "module": "lib/esm/index.js",
+  "main": "lib/cjs/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib/**/*",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build:browser": "tsc --project ./tsconfig.browser.json",
+    "build:node": "tsc --project ./tsconfig.node.json",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest",
     "watch": "npm test -- --watch",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "prepare": "npm run build",
+    "prepare": "npm run build:browser && npm run build:node",
     "prepublishOnly": "npm test && npm run lint",
     "preversion" : "npm run lint",
     "version" : "npm run format && git add -A src",
