@@ -40,6 +40,21 @@ describe('formatToken', () => {
     expect(formatToken(new Date('2021-08-27T14:34:56'), token, 'en-GB')).toEqual('2 pm')
   })
 
+  it('should format hours with 2 digits by locale', () => {
+    const token = 'HH'
+    expect(formatToken(new Date('2021-08-27T08:34:06'), token, 'ar')).toEqual('٠٨')
+  })
+
+  it('should format seconds with 2 digits by locale', () => {
+    const token = 'mm'
+    expect(formatToken(new Date('2021-08-27T08:04:06'), token, 'ar')).toEqual('٠٤')
+  })
+
+  it('should format seconds with 2 digits by locale', () => {
+    const token = 'ss'
+    expect(formatToken(new Date('2021-08-27T08:04:06'), token, 'ar')).toEqual('٠٦')
+  })
+
   // am / pm
 
   it('should format am/pm by ko locale', () => {
@@ -79,7 +94,7 @@ describe('formatToken', () => {
 
   // All the formats
 
-  const allFormatsTestDate = new Date('2021-08-07T02:04:06')
+  const allFormatsTestDate = new Date('2021-08-07T02:04:06.789')
   const tokens = {
     yyyy: '2021',
     yy: '21',
@@ -104,8 +119,11 @@ describe('formatToken', () => {
     h: '2 AM',
     mm: '04',
     m: '4',
-    ss: '06', // Seems to be a bug
+    ss: '06',
     s: '6',
+    SSS: '789',
+    SS: '78',
+    S: '7',
     a: 'AM'
   }
 

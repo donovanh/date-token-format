@@ -2,7 +2,7 @@
 
 A lightweight (~2kB), locale aware formatter for strings containing unicode date tokens.
 
-![Test coverage](https://badgen.net/badge/coverage/100%25/green)![Minimised code size](https://badgen.net/bundlephobia/min/date-token-format)![Types included](https://badgen.net/npm/types/date-token-format)![License: ISC](https://badgen.net/npm/license/date-token-format)
+![Test coverage](https://badgen.net/badge/coverage/100%25/green) ![Minimised code size](https://badgen.net/bundlephobia/min/date-token-format) ![Types included](https://badgen.net/npm/types/date-token-format) ![License: ISC](https://badgen.net/npm/license/date-token-format)
 
 ## Usage
 
@@ -31,10 +31,10 @@ The `date` object should be a valid JavaScript date. The `format` string should 
 ```
 const date = new Date('2021-08-27T12:34:56')
 formatToken(date, 'EEEE', 'en-US')
-=> Friday
+//=> Friday
 
 formatToken(date, 'EEEE', 'de')
-=> Freitag
+//=> Freitag
 ```
 
 Auto-detecting browser locale:
@@ -42,7 +42,8 @@ Auto-detecting browser locale:
 ```
 const locale = window.navigator.userLanguage || window.navigator.language
 const date = new Date('2021-08-27T12:34:56')
-formatToken(date, 'EEEE', locale) // Will output weekday in the browser's locale
+formatToken(date, 'EEEE', locale)
+//=> weekday in the browser's locale
 ```
 
 ## Formats
@@ -69,27 +70,28 @@ The following options, based on [unicode date field symbols](https://www.unicode
 | m        | Minutes                         | 3              |
 | ss       | Seconds (2-digits)              | 06             |
 | s        | Seconds                         | 6              |
+| SSS      | Fractional seconds (3)          | 789            |
+| SS       | Fractional seconds (2)          | 78             |
+| S        | Fractional seconds (1)          | 7              |
 | a        | AM / PM                         | AM             |
 | HH:mm    | Hours and minutes (24-hour)     | 03:06          |
 | HH:mm:ss | Hours/minutes/seconds (24-hour) | 03:06:07       |
 | h:mm     | Hours and minutes (12-hour)     | 3:06 AM        |
 | h:mm:ss  | Hours/minutes/seconds (12-hour) | 3:06:07 AM     |
 
-## Limitations
-
-As this utility makes use of `Date.toLocaleString`, it is not able to support as many options, especially around hours and minutes. Libraries such as [date-fns](http://date-fns.org) might be useful for a wider range of token support such as ordinals (`1st`, `2nd`, etc).
-
-Be aware of potential clashing token letters. For example, if you use `s` in your format, it will be converted into seconds.
-
-This version does not yet include a method for excluding parts of format strings from being processed.
-
 ## Browser support
 
-This utility uses the `Date.toLocaleString` method to provide locale support. This means all locales are supported via the browser without the need for any extra locale configuration.
+This utility uses the `toLocaleString` method to provide locale support. This means all locales are supported via the browser without the need for any extra locale configuration.
 
 It is [widely supported](https://caniuse.com/?search=toLocaleString) across all modern and many not-so modern browsers.
 
 To ensure better browser support, options such as `dateStyle` and `timeStyle` are avoided in favour of more specific options.
+
+## Limitations
+
+As this utility makes use of `toLocaleString`, it is not able to support as many options as you might find in libraries such as [date-fns](http://date-fns.org), such as international support for `ordinals`.
+
+Be aware of potential clashing token letters. For example, if you use `s` in your format, it will be converted into seconds. This version does not yet include a method for excluding parts of format strings from being processed.
 
 ## ISC License
 
