@@ -28,11 +28,11 @@ const tokens: Tokens = {
   m: { minute: 'numeric' },
   ss: {},
   s: { second: 'numeric' },
-  //@ts-ignore
+  // @ts-ignore
   SSS: { fractionalSecondDigits: 3 },
-  //@ts-ignore
+  // @ts-ignore
   SS: { fractionalSecondDigits: 2 },
-  //@ts-ignore
+  // @ts-ignore
   S: { fractionalSecondDigits: 1 },
   a: {}
 }
