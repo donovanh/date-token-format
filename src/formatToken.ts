@@ -43,7 +43,6 @@ interface Overrides {
 
 const ampmForLocale = (date: Date, locale: string): string => {
   const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
-  const fallback = date.toLocaleString('en-US', options).split(' ')[1]
   const result = date.toLocaleString(locale, options)
   if (locale.startsWith('ar')) {
     return result.split(' ')[1]
