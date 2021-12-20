@@ -49,7 +49,7 @@ const ampmForLocale = (date: Date, locale: string): string => {
     return result.split(' ')[1]
   }
   const filtered = result.replace(/(\d{0,2}:\d{0,2})/, '')
-  return filtered && filtered.trim().length ? filtered.trim() : fallback
+  return filtered.trim()
 }
 
 const overrides: Overrides = {
