@@ -1,6 +1,8 @@
 # Date Token Format
 
-A lightweight (less than 2kB), locale aware formatter for strings containing unicode date tokens.
+A lightweight (~2kB), locale aware formatter for strings containing unicode date tokens.
+
+![Test coverage](https://badgen.net/badge/coverage/100%25/green)![Minimised code size](https://badgen.net/bundlephobia/min/date-token-format)![Types included](https://badgen.net/npm/types/date-token-format)![License: ISC](https://badgen.net/npm/license/date-token-format)
 
 ## Usage
 

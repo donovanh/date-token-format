@@ -72,9 +72,9 @@ describe('formatToken', () => {
     expect(formatToken(date, token, 'bo-CN')).toEqual('ཕྱི་དྲོ་')
   })
 
-  it('should present fallback format am/pm by ja-JP locale', () => {
+  it('should present am/pm am/pm by ja-JP locale', () => {
     const token = 'a'
-    expect(formatToken(date, token, 'ja-JP')).toEqual('PM') // Fallback
+    expect(formatToken(date, token, 'ja-JP')).toEqual('午後')
   })
 
   // All the formats

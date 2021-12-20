@@ -39,7 +39,10 @@ const ampmForLocale = (date: Date, locale: string): string => {
   const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
   const fallback = date.toLocaleString('en-US', options).split(' ')[1]
   const result = date.toLocaleString(locale, options)
-  const filtered = result.replace(/([^\s-]*[^\s-]:[^\s-][^\s-])/, '')
+  if (locale.startsWith('ar')) {
+    return result.split(' ')[1]
+  }
+  const filtered = result.replace(/(\d{0,2}:\d{0,2})/, '')
   return filtered && filtered.trim().length ? filtered.trim() : fallback
 }
 
@@ -49,8 +52,8 @@ const overrides: Overrides = {
     return ('0' + minute).slice(-2)
   },
   ss: (date, locale) => {
-    const minute = date.toLocaleString(locale, { second: '2-digit' })
-    return ('0' + minute).slice(-2)
+    const second = date.toLocaleString(locale, { second: '2-digit' })
+    return ('0' + second).slice(-2)
   },
   a: ampmForLocale
 }
