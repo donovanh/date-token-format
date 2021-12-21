@@ -1,8 +1,8 @@
 # Date Token Format
 
-A lightweight (~2kB), locale aware formatter for strings containing unicode date tokens.
+A lightweight (~2kB), locale-aware formatter for strings containing unicode date tokens.
 
-![Test coverage](https://badgen.net/badge/coverage/100%25/green) ![Minimised code size](https://badgen.net/bundlephobia/min/date-token-format) ![Types included](https://badgen.net/npm/types/date-token-format) ![License: ISC](https://badgen.net/npm/license/date-token-format)
+![Test coverage](https://badgen.net/badge/coverage/100%25/green) [![Minimised code size](https://badgen.net/bundlephobia/min/date-token-format)](https://bundlephobia.com/package/date-token-format) ![Types included](https://badgen.net/npm/types/date-token-format) ![License: ISC](https://badgen.net/npm/license/date-token-format)
 
 ## Usage
 
@@ -50,40 +50,42 @@ formatToken(date, 'EEEE', locale)
 
 The following options, based on [unicode date field symbols](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) can be used to generate a locale-based formatted string.
 
-| token    | description                     | example output |
-| -------- | ------------------------------- | -------------- |
-| yyyy     | Full year                       | 2021           |
-| yy       | Short year                      | 21             |
-| MMMM     | Full month (text)               | August         |
-| MMM      | Short month (text)              | Aug            |
-| MM       | 2-digit month                   | 08             |
-| M        | Numeric month                   | 8              |
-| dd       | 2-digit day                     | 07             |
-| d        | Numeric day                     | 7              |
-| EEEE     | Full weekday                    | Friday         |
-| EEE      | Short weekday                   | Fri            |
-| EE       | Narrow weekday                  | F              |
-| HH       | 24-hour hour                    | 08             |
-| H        | 24-hour hour                    | 08             |
-| h        | 12-hour hour                    | 8 AM           |
-| mm       | Minutes (2-digits)              | 03             |
-| m        | Minutes                         | 3              |
-| ss       | Seconds (2-digits)              | 06             |
-| s        | Seconds                         | 6              |
-| SSS      | Fractional seconds (3)          | 789            |
-| SS       | Fractional seconds (2)          | 78             |
-| S        | Fractional seconds (1)          | 7              |
-| a        | AM / PM                         | AM             |
-| HH:mm    | Hours and minutes (24-hour)     | 03:06          |
-| HH:mm:ss | Hours/minutes/seconds (24-hour) | 03:06:07       |
-| h:mm     | Hours and minutes (12-hour)     | 3:06 AM        |
-| h:mm:ss  | Hours/minutes/seconds (12-hour) | 3:06:07 AM     |
+| Category          | Token    | Example output |
+| ----------------- | -------- | -------------- |
+| Year              | yyyy     | 2021           |
+|                   | yy       | 21             |
+| Month             | MMMM     | August         |
+|                   | MMM      | Aug            |
+|                   | MM       | 08             |
+|                   | M        | 8              |
+| Day (numeric)     | dd       | 07             |
+|                   | d        | 7              |
+| Week day          | EEEE     | Friday         |
+|                   | EEE      | Fri            |
+|                   | EE       | F              |
+| Hour (24)         | HH       | 08             |
+|                   | H        | 08             |
+| Hour (12)         | h        | 8 AM           |
+| Minute            | mm       | 03             |
+|                   | m        | 3              |
+| Second            | ss       | 06             |
+|                   | s        | 6              |
+| Fractional second | SSS      | 789            |
+|                   | SS       | 78             |
+|                   | S        | 7              |
+| AM/PM             | a        | AM             |
+| Shortcuts         | HH:mm    | 03:06          |
+|                   | HH:mm:ss | 03:06:07       |
+|                   | h:mm     | 3:06 AM        |
+|                   | h:mm:ss  | 3:06:07 AM     |
 
 ## Browser support
 
+![Chrome 24+](https://badgen.net/badge/icon/24%2b?icon=chrome&label=chrome&color=green) ![IE 11](https://badgen.net/badge/icon/11%2b?icon=windows&label=ie&color=green) ![Edge 11](https://badgen.net/badge/icon/12%2b?icon=windows&label=edge&color=green) ![Safari 10+](https://badgen.net/badge/icon/10%2b?icon=apple&label=safari&color=green) ![Firefox 29+](https://badgen.net/badge/icon/29%2b?icon=firefox&label=firefox&color=green)
+
 This utility uses the `toLocaleString` method to provide locale support. This means all locales are supported via the browser without the need for any extra locale configuration.
 
-It is [widely supported](https://caniuse.com/?search=toLocaleString) across all modern and many not-so modern browsers.
+It is [widely supported](https://caniuse.com/?search=toLocaleString) across all modern and many not-so-modern browsers.
 
 To ensure better browser support, options such as `dateStyle` and `timeStyle` are avoided in favour of more specific options.
 
