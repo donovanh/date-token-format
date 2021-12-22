@@ -18,11 +18,11 @@ const tokens: Tokens = {
   EEE: { weekday: 'short' },
   EE: { weekday: 'narrow' },
   // @ts-ignore
-  'h:mm:ss.SSS': {...hmsa, fractionalSecondDigits: 3 },
+  'h:mm:ss.SSS': { ...hmsa, fractionalSecondDigits: 3 },
   // @ts-ignore
-  'h:mm:ss.SS': {...hmsa, fractionalSecondDigits: 2 },
+  'h:mm:ss.SS': { ...hmsa, fractionalSecondDigits: 2 },
   // @ts-ignore
-  'h:mm:ss.S': {...hmsa, fractionalSecondDigits: 1 },
+  'h:mm:ss.S': { ...hmsa, fractionalSecondDigits: 1 },
   'h:mm:ss': { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true },
   'hh:mm a': hma,
   'h:mm a': hma,
