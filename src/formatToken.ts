@@ -38,9 +38,13 @@ interface Overrides {
   [key: string]: (date: Date, locale: string) => string
 }
 
+type ToLocaleFunction = (date: Date, locale: string, options: Intl.DateTimeFormatOptions) => string
+
+const t: ToLocaleFunction  = (date: Date, locale: string, options: Intl.DateTimeFormatOptions) => date.toLocaleString(locale, options)
+
 const ampmForLocale = (date: Date, locale: string): string => {
   const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
-  const result = date.toLocaleString(locale, options)
+  const result = t(date, locale, options)
   if (locale.startsWith('ar')) {
     return result.split(' ')[1]
   }
@@ -50,13 +54,13 @@ const ampmForLocale = (date: Date, locale: string): string => {
 
 const overrides: Overrides = {
   mm: (date, locale) => {
-    const minute = date.toLocaleString('en-US', { minute: '2-digit' })
+    const minute = t(date, 'en-US', { minute: '2-digit' })
     return new Intl.NumberFormat(locale, {
       minimumIntegerDigits: 2
     }).format(+minute)
   },
   ss: (date, locale) => {
-    const second = date.toLocaleString('en-US', { second: '2-digit' })
+    const second = t(date, 'en-US', { second: '2-digit' })
     return new Intl.NumberFormat(locale, {
       minimumIntegerDigits: 2
     }).format(+second)
@@ -67,7 +71,7 @@ const overrides: Overrides = {
 type ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: string) => string
 
 const processDate: ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: string) =>
-  date.toLocaleString(locale, options)
+  t(date, locale, options)
 
 interface Matches {
   [key: string]: string
