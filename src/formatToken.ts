@@ -14,11 +14,8 @@ const tokens: Tokens = {
   EEEE: { weekday: 'long' },
   EEE: { weekday: 'short' },
   EE: { weekday: 'narrow' },
-  'HH:mm:ss': { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false },
-  'H:mm:ss': { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false },
   'h:mm:ss': { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true },
   'hh:mm a': { hour: 'numeric', minute: 'numeric', hour12: true },
-  'HH:mm': { hour: 'numeric', minute: 'numeric', hour12: false },
   'h:mm a': { hour: 'numeric', minute: 'numeric', hour12: true },
   'h:mm': { hour: 'numeric', minute: 'numeric', hour12: true },
   HH: { hour: '2-digit', hour12: false },
@@ -79,7 +76,7 @@ interface Matches {
 export const formatToken = (date: Date, format: string, locale = 'en-US'): string => {
   let updatedFormatStr = format
   const replacements: Matches = {}
-  let matchNumber = 0
+  let matchNumber = 10 // Starting with 2 digits to handle more than 9 matches
   for (const tokenKey of Object.keys(tokens)) {
     const regex = new RegExp(tokenKey, 'g')
     const matches = updatedFormatStr.match(regex)
@@ -90,7 +87,7 @@ export const formatToken = (date: Date, format: string, locale = 'en-US'): strin
     }
   }
 
-  if (!matchNumber) {
+  if (matchNumber === 10) {
     return 'No date format tokens found'
   }
 

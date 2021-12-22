@@ -74,10 +74,6 @@ The following options, based on [unicode date field symbols](https://www.unicode
 |                   | SS       | 78             |
 |                   | S        | 7              |
 | AM/PM             | a        | AM             |
-| Shortcuts         | HH:mm    | 03:06          |
-|                   | HH:mm:ss | 03:06:07       |
-|                   | h:mm     | 3:06 AM        |
-|                   | h:mm:ss  | 3:06:07 AM     |
 
 ## Browser support
 
