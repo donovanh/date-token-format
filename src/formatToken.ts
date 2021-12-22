@@ -2,6 +2,9 @@ interface Tokens {
   [key: string]: Intl.DateTimeFormatOptions
 }
 
+const hma: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
+const hmsa: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
+
 const tokens: Tokens = {
   yyyy: { year: 'numeric' },
   yy: { year: '2-digit' },
@@ -14,10 +17,22 @@ const tokens: Tokens = {
   EEEE: { weekday: 'long' },
   EEE: { weekday: 'short' },
   EE: { weekday: 'narrow' },
+  // @ts-ignore
+  'h:mm:ss.SSS': {...hmsa, fractionalSecondDigits: 3 },
+  // @ts-ignore
+  'h:mm:ss.SS': {...hmsa, fractionalSecondDigits: 2 },
+  // @ts-ignore
+  'h:mm:ss.S': {...hmsa, fractionalSecondDigits: 1 },
   'h:mm:ss': { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true },
-  'hh:mm a': { hour: 'numeric', minute: 'numeric', hour12: true },
-  'h:mm a': { hour: 'numeric', minute: 'numeric', hour12: true },
-  'h:mm': { hour: 'numeric', minute: 'numeric', hour12: true },
+  'hh:mm a': hma,
+  'h:mm a': hma,
+  'h:mm': hma,
+  // @ts-ignore
+  SSS: { fractionalSecondDigits: 3 },
+  // @ts-ignore
+  SS: { fractionalSecondDigits: 2 },
+  // @ts-ignore
+  S: { fractionalSecondDigits: 1 },
   HH: { hour: '2-digit', hour12: false },
   H: { hour: 'numeric', hour12: false },
   h: { hour: 'numeric', hour12: true },
@@ -25,12 +40,6 @@ const tokens: Tokens = {
   m: { minute: 'numeric' },
   ss: {},
   s: { second: 'numeric' },
-  // @ts-ignore
-  SSS: { fractionalSecondDigits: 3 },
-  // @ts-ignore
-  SS: { fractionalSecondDigits: 2 },
-  // @ts-ignore
-  S: { fractionalSecondDigits: 1 },
   a: {}
 }
 
@@ -39,7 +48,7 @@ interface Overrides {
 }
 
 const ampmForLocale = (date: Date, locale: string): string => {
-  const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
+  const options: Intl.DateTimeFormatOptions = hma
   const result = date.toLocaleString(locale, options)
   if (locale.startsWith('ar')) {
     return result.split(' ')[1]
