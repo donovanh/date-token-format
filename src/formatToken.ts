@@ -40,7 +40,8 @@ interface Overrides {
 
 type ToLocaleFunction = (date: Date, locale: string, options: Intl.DateTimeFormatOptions) => string
 
-const t: ToLocaleFunction  = (date: Date, locale: string, options: Intl.DateTimeFormatOptions) => date.toLocaleString(locale, options)
+const t: ToLocaleFunction = (date: Date, locale: string, options: Intl.DateTimeFormatOptions) =>
+  date.toLocaleString(locale, options)
 
 const ampmForLocale = (date: Date, locale: string): string => {
   const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
