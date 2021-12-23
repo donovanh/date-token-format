@@ -37,43 +37,37 @@ formatToken(date, 'EEEE', 'de')
 //=> Freitag
 ```
 
-Auto-detecting browser locale:
-
-```
-const locale = window.navigator.userLanguage || window.navigator.language
-const date = new Date('2021-08-27T12:34:56')
-formatToken(date, 'EEEE', locale)
-//=> weekday in the browser's locale
-```
+If no `locale` is given, it will try to detect the browser's built-in language setting.
 
 ## Formats
 
 The following options, based on [unicode date field symbols](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) can be used to generate a locale-based formatted string.
 
-| Category          | Token    | Example output |
-| ----------------- | -------- | -------------- |
-| Year              | yyyy     | 2021           |
-|                   | yy       | 21             |
-| Month             | MMMM     | August         |
-|                   | MMM      | Aug            |
-|                   | MM       | 08             |
-|                   | M        | 8              |
-| Day (numeric)     | dd       | 07             |
-|                   | d        | 7              |
-| Week day          | EEEE     | Friday         |
-|                   | EEE      | Fri            |
-|                   | EE       | F              |
-| Hour (24)         | HH       | 08             |
-|                   | H        | 08             |
-| Hour (12)         | h        | 8 AM           |
-| Minute            | mm       | 03             |
-|                   | m        | 3              |
-| Second            | ss       | 06             |
-|                   | s        | 6              |
-| Fractional second | SSS      | 789            |
-|                   | SS       | 78             |
-|                   | S        | 7              |
-| AM/PM             | a        | AM             |
+| Category          | Token | Output (en-US) | Output (ja-JP) |
+| ----------------- | ----- | -------------- | -------------- |
+| Year              | yyyy  | 2021           | 2021 年        |
+|                   | yy    | 21             | 21 年          |
+| Month             | MMMM  | August         | 8 月           |
+|                   | MMM   | Aug            | 8 月           |
+|                   | MM    | 08             | 08 月          |
+|                   | M     | 8              | 8 月           |
+| Day (numeric)     | dd    | 07             | 07 日          |
+|                   | d     | 7              | 7 日           |
+| Week day          | EEEE  | Friday         | 金曜日         |
+|                   | EEE   | Fri            | 金             |
+|                   | EE    | F              | 金             |
+| Hour (24)         | HH    | 08             | 08 時          |
+|                   | H     | 08             | 08 時          |
+| Hour (12)         | h     | 8 AM           | 午前 8 時      |
+| Minute            | mm    | 03             | 03             |
+|                   | m     | 3              | 3              |
+| Second            | ss    | 06             | 06             |
+|                   | s     | 6              | 6              |
+| Fractional second | SSS   | 789            | 789            |
+|                   | SS    | 78             | 78             |
+|                   | S     | 7              | 7              |
+| AM/PM             | a     | AM             | 午前           |
+
 
 ## Browser support
 

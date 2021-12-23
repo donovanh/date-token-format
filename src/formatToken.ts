@@ -82,7 +82,8 @@ interface Matches {
   [key: string]: string
 }
 
-export const formatToken = (date: Date, format: string, locale = 'en-US'): string => {
+export const formatToken = (date: Date, format: string, localeOverride?: string): string => {
+  const locale = localeOverride || window.navigator.language || 'en-US'
   let updatedFormatStr = format
   const replacements: Matches = {}
   let matchNumber = 10 // Starting with 2 digits to handle more than 9 matches

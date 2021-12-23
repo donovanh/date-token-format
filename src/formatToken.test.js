@@ -2,9 +2,25 @@ import { formatToken } from '.'
 
 describe('formatToken', () => {
   const date = new Date('2021-08-27T12:34:56')
+  let originalLanguage = window.navigator.language
+  let languageGetter
+
+  beforeEach(() => {
+    languageGetter = jest.spyOn(window.navigator, 'language', 'get')
+  })
+
+  afterEach(() => {
+    languageGetter.mockReturnValue(originalLanguage)
+  })
 
   it('should handle no tokens being found', () => {
     expect(formatToken(date, 'foo')).toEqual('No date format tokens found')
+  })
+
+  it('should use the browser locale if no locale specified', () => {
+    languageGetter.mockReturnValue('fr')
+    const token = 'EEE'
+    expect(formatToken(date, token)).toEqual('ven.')
   })
 
   it('should format with a single token', () => {
