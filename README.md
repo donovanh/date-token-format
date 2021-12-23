@@ -1,6 +1,6 @@
 # Date Token Format
 
-A lightweight (~2kB), locale-aware formatter for strings containing unicode date tokens.
+A tiny (~4kB before gzip), locale-aware format function for dates, using unicode date tokens to format the returned string along with localized preset formats.
 
 ![Test coverage](https://badgen.net/badge/coverage/100%25/green) [![Minimised code size](https://badgen.net/bundlephobia/min/date-token-format)](https://bundlephobia.com/package/date-token-format) ![Types included](https://badgen.net/npm/types/date-token-format) ![License: ISC](https://badgen.net/npm/license/date-token-format)
 
@@ -14,32 +14,80 @@ yarn add date-token-format
 
 Import it to your project:
 
-```
-import { formatToken } from "date-token-format"
-```
-
-Then the `formatToken` method can be used to format a date to produce a string.
-
-```
-formatToken(date: Date, format: string, locale?: string)
+```js
+import { format, Presets } from "date-token-format"
 ```
 
-The `date` object should be a valid JavaScript date. The `format` string should contain one or more formats, and the optional `locale` string is a [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)-compatible locale code such as `en-US` or `fr`.
+Then the `format` method formats a `Date` object to produce a formatted `string`.
 
-## Example usage: formatToken
-
+```ts
+format(
+  date: Date,
+  format: string,
+  locale?: string,
+  timeZoneName?: 'short' | 'long'
+)
 ```
+
+The `date` object should be a valid JavaScript date. The `format` string should contain one or more unicode tokens, or a `Preset`, and the optional `locale` string is a [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)-compatible locale code such as `en-US` or `fr`.
+
+## Examples
+
+```js
+// Using preset formats
+
 const date = new Date('2021-08-27T12:34:56')
-formatToken(date, 'EEEE', 'en-US')
+
+format(date, Presets.DATETIME_FULL, 'en-US')
+//=> Friday, August 27, 2021, 12:34 PM
+
+format(date, Presets.DATETIME_FULL, 'ja-JP')
+//=> 2021 年 8 月 7 日土曜日 12:34
+
+// Using format strings
+
+format(date, 'EEEE', 'en-US')
 //=> Friday
 
-formatToken(date, 'EEEE', 'de')
+format(date, 'EEEE', 'de')
 //=> Freitag
+
+format(date, 'EEEE') // No locale, defaults to browser's langauge setting
 ```
 
-If no `locale` is given, it will try to detect the browser's built-in language setting.
+## Date / Time Formats
 
-## Token Formats
+As well as formatting tokens, you can also specify date and time formats. These will adapt to the given locale, based on locale and browser interpretation.
+
+```js
+const date = new Date('2021-08-27T12:34:56')
+import { format, Presets } from 'date-token-format'
+format(date, Presets.DATE_SHORT, 'en-US')
+//=> 8/27/2021
+```
+
+| Preset                       | Output (en-US)                       | Output (ja-JP)                  |
+| ---------------------------- | ------------------------------------ | ------------------------------- |
+| DATE_SHORT                   | 8/27/2021                            | 2021/8/7                        |
+| DATE_MEDIUM                  | Aug 7, 2021                          | 2021 年 8 月 7 日               |
+| DATE_LONG                    | August 7, 2021                       | 2021 年 8 月 7 日               |
+| DATE_FULL                    | Saturday, August 7, 2021             | 2021 年 8 月 7 日土曜日         |
+| TIME                         | 2:04 AM                              | 午前 2:04                       |
+| TIME_WITH_SECONDS            | 2:04:06 AM                           | 午前 2:04:06                    |
+| TIME_LONG                    | 2:04:06.789 AM                       | 午前 2:04:06.789                |
+| TIME_24                      | 02:04                                | 2:04                            |
+| TIME_24_WITH_SECONDS         | 02:04:06                             | 2:04:06                         |
+| TIME_24_LONG                 | 02:04:06.789                         | 2:04:06.789                     |
+| DATETIME_SHORT               | 8/7/2021, 2:04 AM                    | 2021/8/7 2:04                   |
+| DATETIME_SHORT_WITH_SECONDS  | 8/7/2021, 2:04:06 AM                 | 2021/8/7 2:04:06                |
+| DATETIME_MEDIUM              | Aug 7, 2021, 2:04 AM                 | 2021 年 8 月 7 日 2:04          |
+| DATETIME_MEDIUM_WITH_SECONDS | Aug 7, 2021, 2:04:06 AM              | 2021 年 8 月 7 日 2:04:06       |
+| DATETIME_LONG                | August 7, 2021, 2:04 AM              | 2021 年 8 月 7 日 2:04          |
+| DATETIME_LONG_WITH_SECONDS   | August 7, 2021, 2:04:06 AM           | 2021 年 8 月 7 日 2:04:06       |
+| DATETIME_FULL                | Saturday, August 7, 2021, 2:04 AM    | 2021 年 8 月 7 日土曜日 2:04    |
+| DATETIME_FULL_WITH_SECONDS   | Saturday, August 7, 2021, 2:04:06 AM | 2021 年 8 月 7 日土曜日 2:04:06 |
+
+## Unicode tokens
 
 The following options, based on [unicode date field symbols](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) can be used to generate a locale-based formatted string.
 
@@ -68,39 +116,19 @@ The following options, based on [unicode date field symbols](https://www.unicode
 |                   | S     | 7              | 7              |
 | AM/PM             | a     | AM             | 午前           |
 
+## Showing Time Zone (optional)
 
-## Preset Date / Time Formats
+If you want to add a time zone string to the result, set the optional `timeZoneName` value to `short` or `long`. 
 
-As well as formatting tokens, you can also specify date and time formats. These will adapt to the given locale, based on locale and browser interpretation.
+By default no time zone is shown.
 
 ```
-const date = new Date('2021-08-27T12:34:56')
-import { format, Presets } from 'date-token-format'
-format(date, Presets.DATE_SHORT, 'en-US')
-//=> 8/27/2021
+format(date, 'h:mm', 'en-US', 'short')
+// => 2:34 PM, GMT - 5
+
+format(date, 'h:mm', 'en-US', 'long')
+// => 2:34 PM, , Eastern Standard Time
 ```
-
-| Preset                       | Output (en-US)                       | Output (ja-JP)                  |
-| ---------------------------- | ------------------------------------ | ------------------------------- |
-| DATE_SHORT                   | 8/27/2021                            | 2021/8/7                        |
-| DATE_MEDIUM                  | Aug 7, 2021                          | 2021 年 8 月 7 日               |
-| DATE_LONG                    | August 7, 2021                       | 2021 年 8 月 7 日               |
-| DATE_FULL                    | Saturday, August 7, 2021             | 2021 年 8 月 7 日土曜日         |
-| TIME                         | 2:04 AM                              | 午前 2:04                       |
-| TIME_WITH_SECONDS            | 2:04:06 AM                           | 午前 2:04:06                    |
-| TIME_LONG                    | 2:04:06.789 AM                       | 午前 2:04:06.789                |
-| TIME_24                      | 02:04                                | 2:04                            |
-| TIME_24_WITH_SECONDS         | 02:04:06                             | 2:04:06                         |
-| TIME_24_LONG                 | 02:04:06.789                         | 2:04:06.789                     |
-| DATETIME_SHORT               | 8/7/2021, 2:04 AM                    | 2021/8/7 2:04                   |
-| DATETIME_SHORT_WITH_SECONDS  | 8/7/2021, 2:04:06 AM                 | 2021/8/7 2:04:06                |
-| DATETIME_MEDIUM              | Aug 7, 2021, 2:04 AM                 | 2021 年 8 月 7 日 2:04          |
-| DATETIME_MEDIUM_WITH_SECONDS | Aug 7, 2021, 2:04:06 AM              | 2021 年 8 月 7 日 2:04:06       |
-| DATETIME_LONG                | August 7, 2021, 2:04 AM              | 2021 年 8 月 7 日 2:04          |
-| DATETIME_LONG_WITH_SECONDS   | August 7, 2021, 2:04:06 AM           | 2021 年 8 月 7 日 2:04:06       |
-| DATETIME_FULL                | Saturday, August 7, 2021, 2:04 AM    | 2021 年 8 月 7 日土曜日 2:04    |
-| DATETIME_FULL_WITH_SECONDS   | Saturday, August 7, 2021, 2:04:06 AM | 2021 年 8 月 7 日土曜日 2:04:06 |
-
 
 ## Browser support
 

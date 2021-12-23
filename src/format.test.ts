@@ -1,6 +1,6 @@
-import { formatToken, Presets } from '.'
+import { format, Presets } from '.'
 
-describe('formatToken', () => {
+describe('format', () => {
   const date = new Date('2021-08-27T12:34:56')
   const originalLanguage = window.navigator.language
   let languageGetter: jest.SpyInstance
@@ -15,27 +15,27 @@ describe('formatToken', () => {
 
   describe('tokens', () => {
     it('should handle no tokens being found', () => {
-      expect(formatToken(date, 'foo')).toEqual('No date format tokens found')
+      expect(format(date, 'foo')).toEqual('No date format tokens found')
     })
 
     it('should format with a single token', () => {
       const token = 'EEE'
-      expect(formatToken(date, token)).toEqual('Fri')
+      expect(format(date, token)).toEqual('Fri')
     })
 
     it('should format with multiple tokens', () => {
       const token = 'EEE dd'
-      expect(formatToken(date, token)).toEqual('Fri 27')
+      expect(format(date, token)).toEqual('Fri 27')
     })
 
     it('should format with multiple tokens including other text', () => {
       const token = 'MMMM, EEEE'
-      expect(formatToken(date, token)).toEqual('August, Friday')
+      expect(format(date, token)).toEqual('August, Friday')
     })
 
     it('should format with more than 9 tokens', () => {
       const token = 'yy yyyy MMMM MMM MM M dd d EEEE EEE EE HH H h mm m ss s a yyyy'
-      expect(formatToken(date, token)).toEqual(
+      expect(format(date, token)).toEqual(
         '21 2021 August Aug 08 8 27 27 Friday Fri F 12 12 12 PM 34 34 56 56 PM 2021'
       )
     })
@@ -46,44 +46,44 @@ describe('formatToken', () => {
     it('should use the browser locale if no locale given', () => {
       languageGetter.mockReturnValue('fr')
       const token = 'EEE'
-      expect(formatToken(date, token)).toEqual('ven.')
+      expect(format(date, token)).toEqual('ven.')
     })
 
     it('should use the default locale if no browser locale given', () => {
       languageGetter.mockReturnValue(undefined)
       const token = 'EEE'
-      expect(formatToken(date, token)).toEqual('Fri')
+      expect(format(date, token)).toEqual('Fri')
     })
 
     it('should format token by locale', () => {
       const token = 'MMMM'
-      expect(formatToken(date, token, 'fr-FR')).toEqual('août')
+      expect(format(date, token, 'fr-FR')).toEqual('août')
     })
 
     it('should format multiple tokens by locale', () => {
       const token = 'EEEE dd MMMM'
-      expect(formatToken(date, token, 'fr-FR')).toEqual('vendredi 27 août')
+      expect(format(date, token, 'fr-FR')).toEqual('vendredi 27 août')
     })
 
     it('should format single digit hours with locale', () => {
       const token = 'h'
-      expect(formatToken(new Date('2021-08-27T08:34:56'), token, 'en-GB')).toEqual('8 am')
-      expect(formatToken(new Date('2021-08-27T14:34:56'), token, 'en-GB')).toEqual('2 pm')
+      expect(format(new Date('2021-08-27T08:34:56'), token, 'en-GB')).toEqual('8 am')
+      expect(format(new Date('2021-08-27T14:34:56'), token, 'en-GB')).toEqual('2 pm')
     })
 
     it('should format hours with 2 digits by locale', () => {
       const token = 'HH'
-      expect(formatToken(new Date('2021-08-27T08:34:06'), token, 'ar')).toEqual('٠٨')
+      expect(format(new Date('2021-08-27T08:34:06'), token, 'ar')).toEqual('٠٨')
     })
 
     it('should format seconds with 2 digits by locale', () => {
       const token = 'mm'
-      expect(formatToken(new Date('2021-08-27T08:04:06'), token, 'ar')).toEqual('٠٤')
+      expect(format(new Date('2021-08-27T08:04:06'), token, 'ar')).toEqual('٠٤')
     })
 
     it('should format seconds with 2 digits by locale', () => {
       const token = 'ss'
-      expect(formatToken(new Date('2021-08-27T08:04:06'), token, 'ar')).toEqual('٠٦')
+      expect(format(new Date('2021-08-27T08:04:06'), token, 'ar')).toEqual('٠٦')
     })
   })
 
@@ -91,37 +91,49 @@ describe('formatToken', () => {
   describe('am / pm', () => {
     it('should format am/pm by ko locale', () => {
       const token = 'a'
-      expect(formatToken(date, token, 'ko')).toEqual('오후')
+      expect(format(date, token, 'ko')).toEqual('오후')
     })
 
     it('should format am/pm by ar locale', () => {
       const token = 'a'
-      expect(formatToken(date, token, 'ar')).toEqual('م')
+      expect(format(date, token, 'ar')).toEqual('م')
     })
 
     it('should format am/pm by cn locale', () => {
       const token = 'a'
-      expect(formatToken(date, token, 'cn')).toEqual('p.m.')
+      expect(format(date, token, 'cn')).toEqual('p.m.')
     })
 
     it('should format am/pm by af locale', () => {
       const token = 'a'
-      expect(formatToken(date, token, 'af')).toEqual('nm.')
+      expect(format(date, token, 'af')).toEqual('nm.')
     })
 
     it('should format am/pm by en-GB locale', () => {
       const token = 'a'
-      expect(formatToken(date, token, 'en-GB')).toEqual('pm')
+      expect(format(date, token, 'en-GB')).toEqual('pm')
     })
 
     it('should format am/pm by en-GB locale', () => {
       const token = 'a'
-      expect(formatToken(date, token, 'bo-CN')).toEqual('ཕྱི་དྲོ་')
+      expect(format(date, token, 'bo-CN')).toEqual('ཕྱི་དྲོ་')
     })
 
     it('should present am/pm am/pm by ja-JP locale', () => {
       const token = 'a'
-      expect(formatToken(date, token, 'ja-JP')).toEqual('午後')
+      expect(format(date, token, 'ja-JP')).toEqual('午後')
+    })
+  })
+
+  describe('with timeZoneName', () => {
+    it('displays a short time zone', () => {
+      expect(format(date, 'h:mm:ss', 'en-US', 'short')).toEqual('12:34:56 PM UTC')
+      expect(format(date, 'EEE', 'en-US', 'short')).toEqual('Fri, UTC')
+    })
+
+    it('displays a long time zone', () => {
+      expect(format(date, 'h:mm:ss', 'en-US', 'long')).toEqual('12:34:56 PM Coordinated Universal Time')
+      expect(format(date, 'EEE', 'en-US', 'long')).toEqual('Fri, Coordinated Universal Time')
     })
   })
 
@@ -183,22 +195,22 @@ describe('formatToken', () => {
 
     for (const [token, expectedValue] of Object.entries(tokens)) {
       it(`should format ${token}`, () => {
-        expect(formatToken(allFormatsTestDate, token)).toEqual(expectedValue)
+        expect(format(allFormatsTestDate, token)).toEqual(expectedValue)
       })
     }
   })
 
   describe('presets', () => {
     it('should handle preset date', () => {
-      expect(formatToken(date, Presets.DATE_SHORT)).toEqual('8/27/2021')
+      expect(format(date, Presets.DATE_SHORT)).toEqual('8/27/2021')
     })
 
     it('should handle preset time', () => {
-      expect(formatToken(date, Presets.TIME)).toEqual('12:34 PM')
+      expect(format(date, Presets.TIME)).toEqual('12:34 PM')
     })
 
     it('should handle preset datetime', () => {
-      expect(formatToken(date, Presets.DATETIME_SHORT)).toEqual('8/27/2021, 12:34 PM')
+      expect(format(date, Presets.DATETIME_SHORT)).toEqual('8/27/2021, 12:34 PM')
     })
   })
 })

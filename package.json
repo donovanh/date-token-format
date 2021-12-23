@@ -26,7 +26,7 @@
     "build": "npm run build:browser && npm run build:node",
     "build:browser": "tsc --project ./tsconfig.browser.json",
     "build:node": "tsc --project ./tsconfig.node.json",
-    "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest",
+    "test": "cross-env NODE_ICU_DATA=node_modules/full-icu TZ=UTC jest",
     "watch": "npm test -- --watch",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.node.json && tslint -p tsconfig.browser.json",

@@ -1,2 +1,2 @@
-export * from './formatToken'
+export * from './format'
 export * from './presets'
