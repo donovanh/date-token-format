@@ -6,21 +6,17 @@ A tiny (~4kB before gzip), locale-aware format function for dates, using unicode
 
 ## Usage
 
-Install the package using:
-
-```
+```js
 yarn add date-token-format
 ```
-
-Import it to your project:
 
 ```js
 import { format, Presets } from "date-token-format"
 ```
 
-Then the `format` method formats a `Date` object to produce a formatted `string`.
+The `format` method takes a `Date` object and returns a formatted date `string`.
 
-```ts
+```js
 format(
   date: Date,
   format: string,
@@ -53,6 +49,7 @@ format(date, 'EEEE', 'de')
 //=> Freitag
 
 format(date, 'EEEE') // No locale, defaults to browser's langauge setting
+//=> Friday
 
 // Optional timezone name
 
@@ -60,7 +57,7 @@ format(date, 'h:mm', 'en-US', 'short')
 // => 2:34 PM, GMT-5
 
 format(date, 'h:mm', 'en-US', 'long')
-// => 2:34 PM, , Eastern Standard Time
+// => 2:34 PM, Eastern Standard Time
 ```
 
 ## Date / Time Formats
@@ -130,7 +127,7 @@ If you want to add a time zone string to the result, set the optional `timeZoneN
 
 By default no time zone is shown.
 
-```
+```js
 format(date, 'h:mm', 'en-US', 'short')
 // => 2:34 PM, GMT - 5
 
