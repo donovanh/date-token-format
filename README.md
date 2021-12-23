@@ -19,7 +19,7 @@ The `format` method takes a `Date` object and returns a formatted date `string`.
 ```js
 format(
   date: Date,
-  format: string,
+  format?: string,
   locale?: string,
   timeZoneName?: 'short' | 'long'
 )

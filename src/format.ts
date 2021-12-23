@@ -8,7 +8,7 @@ const processDate: ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOpti
 
 export const format = (
   date: Date,
-  formatStr: string,
+  formatStr: string = 'date_short',
   localeOverride?: string,
   timeZoneName?: 'long' | 'short'
 ): string => {
