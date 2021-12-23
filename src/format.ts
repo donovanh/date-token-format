@@ -6,7 +6,12 @@ type ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: s
 const processDate: ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: string) =>
   date.toLocaleString(locale, options)
 
-export const format = (date: Date, formatStr: string, localeOverride?: string, timeZoneName?: 'long' | 'short'): string => {
+export const format = (
+  date: Date,
+  formatStr: string,
+  localeOverride?: string,
+  timeZoneName?: 'long' | 'short'
+): string => {
   const locale = localeOverride ? localeOverride : window ? window.navigator.language : 'en-US'
   let updatedFormatStr = formatStr
   const replacements: { [key: string]: string } = {}
@@ -43,5 +48,9 @@ export const format = (date: Date, formatStr: string, localeOverride?: string, t
 }
 
 // Legacy
-export const formatToken = (date: Date, formatStr: string, localeOverride?: string, timeZoneName?: 'long' | 'short'): string =>
-  format(date, formatStr, localeOverride, timeZoneName)
+export const formatToken = (
+  date: Date,
+  formatStr: string,
+  localeOverride?: string,
+  timeZoneName?: 'long' | 'short'
+): string => format(date, formatStr, localeOverride, timeZoneName)

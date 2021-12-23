@@ -35,9 +35,7 @@ describe('format', () => {
 
     it('should format with more than 9 tokens', () => {
       const token = 'yy yyyy MMMM MMM MM M dd d EEEE EEE EE HH H h mm m ss s a yyyy'
-      expect(format(date, token)).toEqual(
-        '21 2021 August Aug 08 8 27 27 Friday Fri F 12 12 12 PM 34 34 56 56 PM 2021'
-      )
+      expect(format(date, token)).toEqual('21 2021 August Aug 08 8 27 27 Friday Fri F 12 12 12 PM 34 34 56 56 PM 2021')
     })
   })
 
