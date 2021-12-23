@@ -3,7 +3,7 @@ import { formatToken, Presets } from '.'
 describe('formatToken', () => {
   const date = new Date('2021-08-27T12:34:56')
   const originalLanguage = window.navigator.language
-  let languageGetter
+  let languageGetter: jest.SpyInstance
 
   beforeEach(() => {
     languageGetter = jest.spyOn(window.navigator, 'language', 'get')
