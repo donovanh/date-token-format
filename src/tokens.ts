@@ -7,9 +7,9 @@ const hma: Intl.DateTimeFormatOptions = { ...hm, hour12: true }
 const hms: Intl.DateTimeFormatOptions = { ...hm, second: 'numeric' }
 const hmsa: Intl.DateTimeFormatOptions = { ...hms, hour12: true }
 const ymd: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'numeric', day: 'numeric' }
-const ymdMed: Intl.DateTimeFormatOptions = { year: "numeric", month: 'short', day: 'numeric' }
-const ymdLong: Intl.DateTimeFormatOptions = { year: "numeric", month: 'long', day: 'numeric' }
-const ymdFull: Intl.DateTimeFormatOptions = { year: "numeric", month: 'long', day: 'numeric', weekday: 'long' }
+const ymdMed: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' }
+const ymdLong: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+const ymdFull: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }
 
 export const tokens: Tokens = {
   datetime_short_with_seconds: { ...ymd, ...hms },

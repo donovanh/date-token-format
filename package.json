@@ -1,6 +1,6 @@
 {
   "name": "date-token-format",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "A lightweight, locale aware formatter for strings containing unicode date tokens.",
   "author": "Donovan Hutchinson",
   "repository": {
@@ -27,7 +27,7 @@
     "build:node": "tsc --project ./tsconfig.node.json",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest",
     "watch": "npm test -- --watch",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.node.json && tslint -p tsconfig.browser.json",
     "prepare": "npm run build:browser && npm run build:node",
     "prepublishOnly": "npm test && npm run lint",

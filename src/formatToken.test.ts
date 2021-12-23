@@ -48,7 +48,7 @@ describe('formatToken', () => {
       const token = 'EEE'
       expect(formatToken(date, token)).toEqual('ven.')
     })
-  
+
     it('should use the default locale if no browser locale given', () => {
       languageGetter.mockReturnValue(undefined)
       const token = 'EEE'
@@ -85,7 +85,7 @@ describe('formatToken', () => {
       const token = 'ss'
       expect(formatToken(new Date('2021-08-27T08:04:06'), token, 'ar')).toEqual('٠٦')
     })
-  })  
+  })
 
   // am / pm
   describe('am / pm', () => {
