@@ -39,7 +39,7 @@ formatToken(date, 'EEEE', 'de')
 
 If no `locale` is given, it will try to detect the browser's built-in language setting.
 
-## Formats
+## Token Formats
 
 The following options, based on [unicode date field symbols](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) can be used to generate a locale-based formatted string.
 
@@ -67,6 +67,39 @@ The following options, based on [unicode date field symbols](https://www.unicode
 |                   | SS    | 78             | 78             |
 |                   | S     | 7              | 7              |
 | AM/PM             | a     | AM             | 午前           |
+
+
+## Preset Date / Time Formats
+
+As well as formatting tokens, you can also specify date and time formats. These will adapt to the given locale, based on locale and browser interpretation.
+
+```
+const date = new Date('2021-08-27T12:34:56')
+import { format, Presets } from 'date-token-format'
+format(date, Presets.DATE_SHORT, 'en-US')
+//=> 8/27/2021
+```
+
+| Preset                       | Output (en-US)                       | Output (ja-JP)                  |
+| ---------------------------- | ------------------------------------ | ------------------------------- |
+| DATE_SHORT                   | 8/27/2021                            | 2021/8/7                        |
+| DATE_MEDIUM                  | Aug 7, 2021                          | 2021 年 8 月 7 日               |
+| DATE_LONG                    | August 7, 2021                       | 2021 年 8 月 7 日               |
+| DATE_FULL                    | Saturday, August 7, 2021             | 2021 年 8 月 7 日土曜日         |
+| TIME                         | 2:04 AM                              | 午前 2:04                       |
+| TIME_WITH_SECONDS            | 2:04:06 AM                           | 午前 2:04:06                    |
+| TIME_LONG                    | 2:04:06.789 AM                       | 午前 2:04:06.789                |
+| TIME_24                      | 02:04                                | 2:04                            |
+| TIME_24_WITH_SECONDS         | 02:04:06                             | 2:04:06                         |
+| TIME_24_LONG                 | 02:04:06.789                         | 2:04:06.789                     |
+| DATETIME_SHORT               | 8/7/2021, 2:04 AM                    | 2021/8/7 2:04                   |
+| DATETIME_SHORT_WITH_SECONDS  | 8/7/2021, 2:04:06 AM                 | 2021/8/7 2:04:06                |
+| DATETIME_MEDIUM              | Aug 7, 2021, 2:04 AM                 | 2021 年 8 月 7 日 2:04          |
+| DATETIME_MEDIUM_WITH_SECONDS | Aug 7, 2021, 2:04:06 AM              | 2021 年 8 月 7 日 2:04:06       |
+| DATETIME_LONG                | August 7, 2021, 2:04 AM              | 2021 年 8 月 7 日 2:04          |
+| DATETIME_LONG_WITH_SECONDS   | August 7, 2021, 2:04:06 AM           | 2021 年 8 月 7 日 2:04:06       |
+| DATETIME_FULL                | Saturday, August 7, 2021, 2:04 AM    | 2021 年 8 月 7 日土曜日 2:04    |
+| DATETIME_FULL_WITH_SECONDS   | Saturday, August 7, 2021, 2:04:06 AM | 2021 年 8 月 7 日土曜日 2:04:06 |
 
 
 ## Browser support
