@@ -1,16 +1,19 @@
-import { format, Presets } from '.'
+import { format, formatToken, Presets } from '.'
 
 describe('format', () => {
   const date = new Date('2021-08-27T12:34:56')
   const originalLanguage = window.navigator.language
   let languageGetter: jest.SpyInstance
+  let windowSpy: jest.SpyInstance
 
   beforeEach(() => {
     languageGetter = jest.spyOn(window.navigator, 'language', 'get')
+    windowSpy = jest.spyOn(window, "window", "get")
   })
 
   afterEach(() => {
     languageGetter.mockReturnValue(originalLanguage)
+    windowSpy.mockRestore()
   })
 
   describe('tokens', () => {
@@ -49,6 +52,12 @@ describe('format', () => {
 
     it('should use the default locale if no browser locale given', () => {
       languageGetter.mockReturnValue(undefined)
+      const token = 'EEE'
+      expect(format(date, token)).toEqual('Fri')
+    })
+
+    it('should use the default locale if no window defined', () => {
+      windowSpy.mockImplementation(() => undefined);
       const token = 'EEE'
       expect(format(date, token)).toEqual('Fri')
     })
@@ -210,5 +219,14 @@ describe('format', () => {
     it('should handle preset datetime', () => {
       expect(format(date, Presets.DATETIME_SHORT)).toEqual('8/27/2021, 12:34 PM')
     })
+  })
+})
+
+describe('formatToken', () => {
+  const date = new Date('2021-08-27T12:34:56')
+
+  it('should run via format', () => {
+    const token = 'EEE'
+    expect(formatToken(date, token)).toEqual('Fri')
   })
 })
