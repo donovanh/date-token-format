@@ -28,7 +28,7 @@
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest",
     "watch": "npm test -- --watch",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.node.json",
+    "lint": "tslint -p tsconfig.node.json && tslint -p tsconfig.browser.json",
     "prepare": "npm run build:browser && npm run build:node",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",

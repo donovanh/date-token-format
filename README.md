@@ -37,43 +37,70 @@ formatToken(date, 'EEEE', 'de')
 //=> Freitag
 ```
 
-Auto-detecting browser locale:
+If no `locale` is given, it will try to detect the browser's built-in language setting.
 
-```
-const locale = window.navigator.userLanguage || window.navigator.language
-const date = new Date('2021-08-27T12:34:56')
-formatToken(date, 'EEEE', locale)
-//=> weekday in the browser's locale
-```
-
-## Formats
+## Token Formats
 
 The following options, based on [unicode date field symbols](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) can be used to generate a locale-based formatted string.
 
-| Category          | Token    | Example output |
-| ----------------- | -------- | -------------- |
-| Year              | yyyy     | 2021           |
-|                   | yy       | 21             |
-| Month             | MMMM     | August         |
-|                   | MMM      | Aug            |
-|                   | MM       | 08             |
-|                   | M        | 8              |
-| Day (numeric)     | dd       | 07             |
-|                   | d        | 7              |
-| Week day          | EEEE     | Friday         |
-|                   | EEE      | Fri            |
-|                   | EE       | F              |
-| Hour (24)         | HH       | 08             |
-|                   | H        | 08             |
-| Hour (12)         | h        | 8 AM           |
-| Minute            | mm       | 03             |
-|                   | m        | 3              |
-| Second            | ss       | 06             |
-|                   | s        | 6              |
-| Fractional second | SSS      | 789            |
-|                   | SS       | 78             |
-|                   | S        | 7              |
-| AM/PM             | a        | AM             |
+| Category          | Token | Output (en-US) | Output (ja-JP) |
+| ----------------- | ----- | -------------- | -------------- |
+| Year              | yyyy  | 2021           | 2021 年        |
+|                   | yy    | 21             | 21 年          |
+| Month             | MMMM  | August         | 8 月           |
+|                   | MMM   | Aug            | 8 月           |
+|                   | MM    | 08             | 08 月          |
+|                   | M     | 8              | 8 月           |
+| Day (numeric)     | dd    | 07             | 07 日          |
+|                   | d     | 7              | 7 日           |
+| Week day          | EEEE  | Friday         | 金曜日         |
+|                   | EEE   | Fri            | 金             |
+|                   | EE    | F              | 金             |
+| Hour (24)         | HH    | 08             | 08 時          |
+|                   | H     | 08             | 08 時          |
+| Hour (12)         | h     | 8 AM           | 午前 8 時      |
+| Minute            | mm    | 03             | 03             |
+|                   | m     | 3              | 3              |
+| Second            | ss    | 06             | 06             |
+|                   | s     | 6              | 6              |
+| Fractional second | SSS   | 789            | 789            |
+|                   | SS    | 78             | 78             |
+|                   | S     | 7              | 7              |
+| AM/PM             | a     | AM             | 午前           |
+
+
+## Preset Date / Time Formats
+
+As well as formatting tokens, you can also specify date and time formats. These will adapt to the given locale, based on locale and browser interpretation.
+
+```
+const date = new Date('2021-08-27T12:34:56')
+import { format, Presets } from 'date-token-format'
+format(date, Presets.DATE_SHORT, 'en-US')
+//=> 8/27/2021
+```
+
+| Preset                       | Output (en-US)                       | Output (ja-JP)                  |
+| ---------------------------- | ------------------------------------ | ------------------------------- |
+| DATE_SHORT                   | 8/27/2021                            | 2021/8/7                        |
+| DATE_MEDIUM                  | Aug 7, 2021                          | 2021 年 8 月 7 日               |
+| DATE_LONG                    | August 7, 2021                       | 2021 年 8 月 7 日               |
+| DATE_FULL                    | Saturday, August 7, 2021             | 2021 年 8 月 7 日土曜日         |
+| TIME                         | 2:04 AM                              | 午前 2:04                       |
+| TIME_WITH_SECONDS            | 2:04:06 AM                           | 午前 2:04:06                    |
+| TIME_LONG                    | 2:04:06.789 AM                       | 午前 2:04:06.789                |
+| TIME_24                      | 02:04                                | 2:04                            |
+| TIME_24_WITH_SECONDS         | 02:04:06                             | 2:04:06                         |
+| TIME_24_LONG                 | 02:04:06.789                         | 2:04:06.789                     |
+| DATETIME_SHORT               | 8/7/2021, 2:04 AM                    | 2021/8/7 2:04                   |
+| DATETIME_SHORT_WITH_SECONDS  | 8/7/2021, 2:04:06 AM                 | 2021/8/7 2:04:06                |
+| DATETIME_MEDIUM              | Aug 7, 2021, 2:04 AM                 | 2021 年 8 月 7 日 2:04          |
+| DATETIME_MEDIUM_WITH_SECONDS | Aug 7, 2021, 2:04:06 AM              | 2021 年 8 月 7 日 2:04:06       |
+| DATETIME_LONG                | August 7, 2021, 2:04 AM              | 2021 年 8 月 7 日 2:04          |
+| DATETIME_LONG_WITH_SECONDS   | August 7, 2021, 2:04:06 AM           | 2021 年 8 月 7 日 2:04:06       |
+| DATETIME_FULL                | Saturday, August 7, 2021, 2:04 AM    | 2021 年 8 月 7 日土曜日 2:04    |
+| DATETIME_FULL_WITH_SECONDS   | Saturday, August 7, 2021, 2:04:06 AM | 2021 年 8 月 7 日土曜日 2:04:06 |
+
 
 ## Browser support
 
