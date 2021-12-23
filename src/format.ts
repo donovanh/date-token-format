@@ -12,7 +12,7 @@ export const format = (
   localeOverride?: string,
   timeZoneName?: 'long' | 'short'
 ): string => {
-  const locale = localeOverride ? localeOverride : window ? window.navigator.language : 'en-US'
+  const locale = localeOverride ? localeOverride : typeof window !== 'undefined' ? window.navigator.language : 'en-US'
   let updatedFormatStr = formatStr
   const replacements: { [key: string]: string } = {}
   let matchNumber = 10 // Starting with 2 digits to handle more than 9 matches

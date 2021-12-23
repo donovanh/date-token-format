@@ -57,7 +57,7 @@ describe('format', () => {
     })
 
     it('should use the default locale if no window defined', () => {
-      windowSpy.mockImplementation(() => undefined)
+      windowSpy.mockImplementation(undefined)
       const token = 'EEE'
       expect(format(date, token)).toEqual('Fri')
     })
