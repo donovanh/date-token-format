@@ -53,6 +53,14 @@ format(date, 'EEEE', 'de')
 //=> Freitag
 
 format(date, 'EEEE') // No locale, defaults to browser's langauge setting
+
+// Optional timezone name
+
+format(date, 'h:mm', 'en-US', 'short')
+// => 2:34 PM, GMT-5
+
+format(date, 'h:mm', 'en-US', 'long')
+// => 2:34 PM, , Eastern Standard Time
 ```
 
 ## Date / Time Formats
