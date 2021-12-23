@@ -6,9 +6,9 @@ type ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: s
 const processDate: ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: string) =>
   date.toLocaleString(locale, options)
 
-export const format = (date: Date, format: string, localeOverride?: string, timeZoneName?: 'long' | 'short'): string => {
+export const format = (date: Date, formatStr: string, localeOverride?: string, timeZoneName?: 'long' | 'short'): string => {
   const locale = localeOverride ? localeOverride : window ? window.navigator.language : 'en-US'
-  let updatedFormatStr = format
+  let updatedFormatStr = formatStr
   const replacements: { [key: string]: string } = {}
   let matchNumber = 10 // Starting with 2 digits to handle more than 9 matches
   for (const tokenKey of Object.keys(tokens)) {
