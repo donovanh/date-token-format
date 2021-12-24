@@ -40,6 +40,9 @@ An optional `timeZoneName` sets whether to show time zone name, either as `short
 
 const date = new Date('2021-08-27T12:34:56')
 
+format(date)
+//=> 8/27/2021
+
 format(date, Presets.DATETIME_FULL, 'en-US')
 //=> Friday, August 27, 2021, 12:34 PM
 
@@ -135,7 +138,7 @@ By default no time zone is shown.
 
 ```js
 format(date, 'h:mm', 'en-US', 'short')
-// => 2:34 PM GMT - 5
+// => 2:34 PM GMT-5
 
 format(date, 'h:mm', 'en-US', 'long')
 // => 2:34 PM Eastern Standard Time
