@@ -69,7 +69,7 @@ function processTokenString(dateObj: Date, formatStr: string, locale: string, ti
 
 type Format = (
   date: string | Date,
-  formatting: string | Intl.DateTimeFormatOptions,
+  formatting?: string | Intl.DateTimeFormatOptions,
   localeOverride?: string,
   timeZoneName?: 'long' | 'short'
 ) => string

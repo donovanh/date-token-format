@@ -51,6 +51,10 @@ describe('format', () => {
   })
 
   describe('tokens', () => {
+    it('should handle no format being given', () => {
+      expect(format(date)).toEqual('8/27/2021')
+    })
+
     it('should handle no tokens being found', () => {
       expect(format(date, 'foo')).toEqual('No date format tokens found')
     })
