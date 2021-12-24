@@ -4,10 +4,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
-    "outDir": "./lib/cjs/",
+    "outDir": "./dist/cjs/",
     "lib": ["es2017", "dom"],
     "strict": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "**/.test./*"]
+  "exclude": ["node_modules", "**/*.test.*"]
 }

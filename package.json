@@ -14,11 +14,10 @@
     "international"
   ],
   "license": "ISC",
-  "module": "lib/esm/index.js",
-  "main": "lib/cjs/index.js",
-  "types": "lib/index.d.ts",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
   "files": [
-    "lib/**/*",
+    "dist/**/*",
     "README.md"
   ],
   "sideEffects": false,

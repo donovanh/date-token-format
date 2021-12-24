@@ -18,14 +18,20 @@ The `format` method takes a `Date` object and returns a formatted date `string`.
 
 ```js
 format(
-  date: Date,
-  format?: string,
+  date: Date | string,
+  format?: Intl.DateTimeFormatOptions | string,
   locale?: string,
   timeZoneName?: 'short' | 'long'
 )
 ```
 
-The `date` object should be a valid JavaScript date. The `format` string should contain one or more unicode tokens, or a `Preset`, and the optional `locale` string is a [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)-compatible locale code such as `en-US` or `fr`.
+The `date` can be either a valid JavaScript date object or a `string` that can be parsed into a date, such as `2021-08-07`.
+
+The `format` can be a `Preset` format or a string containing one or more unicode tokens. It also accepts a [DateTimeFormat options object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters).
+
+The optional `locale` string is a [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)-compatible locale code such as `en-US` or `fr`.
+
+An optional `timeZoneName` sets whether to show time zone name, either as `short` or `long`.
 
 ## Examples
 
@@ -51,13 +57,13 @@ format(date, 'EEEE', 'de')
 format(date, 'EEEE') // No locale, defaults to browser's langauge setting
 //=> Friday
 
-// Optional timezone name
+// Timezone name
 
 format(date, 'h:mm', 'en-US', 'short')
-// => 2:34 PM, GMT-5
+// => 2:34 PM GMT-5
 
 format(date, 'h:mm', 'en-US', 'long')
-// => 2:34 PM, Eastern Standard Time
+// => 2:34 PM Eastern Standard Time
 ```
 
 ## Date / Time Formats
@@ -129,10 +135,10 @@ By default no time zone is shown.
 
 ```js
 format(date, 'h:mm', 'en-US', 'short')
-// => 2:34 PM, GMT - 5
+// => 2:34 PM GMT - 5
 
 format(date, 'h:mm', 'en-US', 'long')
-// => 2:34 PM, , Eastern Standard Time
+// => 2:34 PM Eastern Standard Time
 ```
 
 ## Browser support

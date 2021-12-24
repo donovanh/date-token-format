@@ -16,6 +16,40 @@ describe('format', () => {
     windowSpy.mockRestore()
   })
 
+  describe('date strings', () => {
+    it('should accept a valid date string', () => {
+      expect(format('2021-08-27', 'EEEE', 'en-US')).toEqual('Friday')
+    })
+
+    it('should handle an invalid date string', () => {
+      expect(format('Last Tuesday', 'EEEE', 'en-US')).toEqual('Invalid Date')
+    })
+  })
+
+  describe('presets', () => {
+    it('should handle preset date', () => {
+      expect(format(date, Presets.DATE_SHORT)).toEqual('8/27/2021')
+    })
+
+    it('should handle preset time', () => {
+      expect(format(date, Presets.TIME)).toEqual('12:34 PM')
+    })
+
+    it('should handle preset datetime', () => {
+      expect(format(date, Presets.DATETIME_SHORT)).toEqual('8/27/2021, 12:34 PM')
+    })
+
+    it('should display a time zone', () => {
+      expect(format(date, Presets.DATE_SHORT, 'en-US', 'short')).toEqual('8/27/2021, UTC')
+    })
+  })
+
+  describe('DateTimeFormat options', () => {
+    it('should accept options', () => {
+      expect(format(date, { weekday: 'long' })).toEqual('Friday')
+    })
+  })
+
   describe('tokens', () => {
     it('should handle no tokens being found', () => {
       expect(format(date, 'foo')).toEqual('No date format tokens found')
@@ -149,23 +183,6 @@ describe('format', () => {
     const allFormatsTestDate = new Date('2021-08-07T02:04:06.789')
     const tokens = {
       date_short: '8/7/2021',
-      date_med: 'Aug 7, 2021',
-      date_long: 'August 7, 2021',
-      date_full: 'Saturday, August 7, 2021',
-      time: '2:04 AM',
-      time_with_seconds: '2:04:06 AM',
-      time_long: '2:04:06.789 AM',
-      time_24: '02:04',
-      time_24_with_seconds: '02:04:06',
-      time_24_long: '02:04:06.789',
-      datetime_short: '8/7/2021, 2:04 AM',
-      datetime_short_with_seconds: '8/7/2021, 2:04:06 AM',
-      datetime_medium: 'Aug 7, 2021, 2:04 AM',
-      datetime_medium_with_seconds: 'Aug 7, 2021, 2:04:06 AM',
-      datetime_long: 'August 7, 2021, 2:04 AM',
-      datetime_long_with_seconds: 'August 7, 2021, 2:04:06 AM',
-      datetime_full: 'Saturday, August 7, 2021, 2:04 AM',
-      datetime_full_with_seconds: 'Saturday, August 7, 2021, 2:04:06 AM',
       yyyy: '2021',
       yy: '21',
       MMMM: 'August',
@@ -205,20 +222,6 @@ describe('format', () => {
         expect(format(allFormatsTestDate, token)).toEqual(expectedValue)
       })
     }
-  })
-
-  describe('presets', () => {
-    it('should handle preset date', () => {
-      expect(format(date, Presets.DATE_SHORT)).toEqual('8/27/2021')
-    })
-
-    it('should handle preset time', () => {
-      expect(format(date, Presets.TIME)).toEqual('12:34 PM')
-    })
-
-    it('should handle preset datetime', () => {
-      expect(format(date, Presets.DATETIME_SHORT)).toEqual('8/27/2021, 12:34 PM')
-    })
   })
 })
 

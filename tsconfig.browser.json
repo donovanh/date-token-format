@@ -4,10 +4,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "declaration": true,
-    "outDir": "./lib/esm/",
+    "outDir": "./dist/esm/",
     "lib": ["es2017", "dom"],
     "strict": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "**/.test./*"]
+  "exclude": ["node_modules", "**/*.test.*"]
 }

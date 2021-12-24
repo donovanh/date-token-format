@@ -1,13 +1,3 @@
-const ampmForLocale = (date: Date, locale: string): string => {
-  const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
-  const result = date.toLocaleString(locale, options)
-  if (locale.startsWith('ar')) {
-    return result.split(' ')[1]
-  }
-  const filtered = result.replace(/(\d{0,2}:\d{0,2})/, '')
-  return filtered.trim()
-}
-
 interface Overrides {
   [key: string]: (date: Date, locale: string) => string
 }
@@ -26,4 +16,14 @@ export const overrides: Overrides = {
     }).format(+second)
   },
   a: ampmForLocale
+}
+
+function ampmForLocale(date: Date, locale: string): string {
+  const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
+  const result = date.toLocaleString(locale, options)
+  if (locale.startsWith('ar')) {
+    return result.split(' ')[1]
+  }
+  const filtered = result.replace(/(\d{0,2}:\d{0,2})/, '')
+  return filtered.trim()
 }

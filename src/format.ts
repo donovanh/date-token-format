@@ -1,56 +1,89 @@
-import { tokens } from './tokens'
-import { overrides } from './overrides'
+import { tokens } from './lib/tokens'
+import { overrides } from './lib/overrides'
 
-type ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: string) => string
-
-const processDate: ProcessDateFn = (date: Date, options: Intl.DateTimeFormatOptions, locale: string) =>
-  date.toLocaleString(locale, options)
-
-export const format = (
+function processDate(
   date: Date,
-  formatStr: string = 'date_short',
-  localeOverride?: string,
+  options: Intl.DateTimeFormatOptions,
+  locale: string,
   timeZoneName?: 'long' | 'short'
-): string => {
-  const locale = localeOverride ? localeOverride : typeof window !== 'undefined' ? window.navigator.language : 'en-US'
-  let updatedFormatStr = formatStr
-  const replacements: { [key: string]: string } = {}
+): string {
+  return date.toLocaleString(locale, { ...options, timeZoneName })
+}
+
+function findReplacementsAndFormat(formatStr: string): {
+  replacements: {
+    [key: string]: string
+  }
+  mappingStr: string
+} {
   let matchNumber = 10 // Starting with 2 digits to handle more than 9 matches
+  let mappingStr: string = formatStr
+  const replacements: {
+    [key: string]: string
+  } = {}
   for (const tokenKey of Object.keys(tokens)) {
     const regex = new RegExp(tokenKey, 'g')
-    const matches = updatedFormatStr.match(regex)
+    const matches = mappingStr.match(regex)
     if (matches) {
       const matchKey = `_${++matchNumber}`
-      updatedFormatStr = updatedFormatStr.replace(regex, matchKey)
+      mappingStr = mappingStr.replace(regex, matchKey)
       replacements[matchKey] = tokenKey
     }
   }
-
-  if (matchNumber === 10) {
-    return 'No date format tokens found'
+  return {
+    replacements,
+    mappingStr
   }
+}
 
+function processReplacements(
+  dateObj: Date,
+  replacements: { [key: string]: string },
+  mappingStr: string,
+  locale: string,
+  timeZoneName?: 'long' | 'short'
+) {
   for (const [key, tokenKey] of Object.entries(replacements)) {
     const regex = new RegExp(key, 'g')
     let replacement
-    const options: Intl.DateTimeFormatOptions = {
-      ...tokens[tokenKey],
-      timeZoneName
-    }
     if (overrides[tokenKey]) {
-      replacement = overrides[tokenKey](date, locale)
+      replacement = overrides[tokenKey](dateObj, locale)
     } else {
-      replacement = processDate(date, options, locale)
+      replacement = processDate(dateObj, tokens[tokenKey], locale, timeZoneName)
     }
-    updatedFormatStr = updatedFormatStr.replace(regex, replacement)
+    mappingStr = mappingStr.replace(regex, replacement)
   }
-  return updatedFormatStr
+  return mappingStr
+}
+
+function processTokenString(dateObj: Date, formatStr: string, locale: string, timeZoneName?: 'long' | 'short'): string {
+  const result = findReplacementsAndFormat(formatStr)
+  const { replacements, mappingStr } = result
+
+  if (!Object.keys(replacements).length) {
+    return 'No date format tokens found'
+  }
+
+  return processReplacements(dateObj, replacements, mappingStr, locale, timeZoneName)
+}
+
+type Format = (
+  date: string | Date,
+  formatting: string | Intl.DateTimeFormatOptions,
+  localeOverride?: string,
+  timeZoneName?: 'long' | 'short'
+) => string
+
+export const format: Format = (date, formatting = 'date_short', localeOverride, timeZoneName) => {
+  const dateObj = typeof date === 'string' ? new Date(date) : date
+  const locale = localeOverride ? localeOverride : typeof window !== 'undefined' ? window.navigator.language : 'en-US'
+  if (typeof formatting === 'string') {
+    return processTokenString(dateObj, formatting, locale, timeZoneName)
+  }
+  // Not a string, parse as DateTimeFormatOptions object
+  return processDate(dateObj, formatting, locale, timeZoneName)
 }
 
 // Legacy
-export const formatToken = (
-  date: Date,
-  formatStr: string,
-  localeOverride?: string,
-  timeZoneName?: 'long' | 'short'
-): string => format(date, formatStr, localeOverride, timeZoneName)
+export const formatToken: Format = (date, formatting, localeOverride, timeZoneName) =>
+  format(date, formatting, localeOverride, timeZoneName)
